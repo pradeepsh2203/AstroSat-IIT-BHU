@@ -2,6 +2,6 @@ import { db } from './database';
 
 var catalogRef = db.collection('catalog');
 
-function searchObject(name) {
-
+export function searchObject(name) {
+    return catalogRef.where('object_name', '==', name).get();
 }
