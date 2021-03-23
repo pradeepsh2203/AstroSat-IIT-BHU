@@ -3,11 +3,22 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
+import Products from "./components/Products";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+    <div>
+      <Switch>
+        <Route path="/table">
+          <Products />
+        </Route>
+        <Route exact path="/">
+          <App />
+        </Route>
+      </Switch>
+    </div>
+  </Router>,
   document.getElementById("root")
 );
 
