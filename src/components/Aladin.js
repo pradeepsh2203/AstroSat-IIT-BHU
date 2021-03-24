@@ -17,11 +17,11 @@ var Type = {
   G: "globular-cluster X-ray source",
   Z: "Z-type",
 };
-function Aladin({ objects }, distance = "-1") {
+function Aladin({ objects, distance }) {
   React.useEffect(() => {
-    const factor = 2;
+    const factor = 3.4;
     let url = window.location.href; //To find the radius
-    if (distance !== "-1") {
+    if (distance !== 0) {
       data.fov = factor * parseFloat(distance);
     }
     if (objects.length) {
@@ -38,7 +38,7 @@ function Aladin({ objects }, distance = "-1") {
     });
     aladin.addCatalog(cat);
 
-    if (distance !== "-1") {
+    if (distance !== 0) {
       // Drawing a cricle of inside of which all the points would be marked
       var cords = data.target.split(" ").map((x) => parseFloat(x));
       if (objects.length != 0) {

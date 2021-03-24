@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { searchNearby, searchObject, searchCatalogB } from "../backend/query";
 
-const Query = ({ setObjects }, distance, setDistance) => {
+const Query = ({ setObjects, distance, setDistance }) => {
   const [query, setQuery] = useState("");
 
   const search = async () => {
