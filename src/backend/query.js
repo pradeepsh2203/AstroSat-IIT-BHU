@@ -4,7 +4,7 @@ import { db } from "./database";
 const catalogBRef = db.collection("catalog");
 const lowMassCatalogARef = db.collection("lowMassCatalog");
 const highMassCatalogARef = db.collection("highMassCatalog");
-
+const catalogCRef = db.collection("publications");
 
 /*
  * Asynchronous function returns a Promise
@@ -50,10 +50,16 @@ export async function searchNearby(object, distance) {
 
   var data = [];
 
-  querySnapshot.docs.forEach((doc) => data.push(doc.data()));
-  querySnapshot1.docs.forEach((doc) => data.push(doc.data()));
+  querySnapshot.docs.forEach((doc) => {
+    if (doc.data().name !== object.name)
+      data.push(doc.data());
+  });
+  querySnapshot1.docs.forEach((doc) => {
+    if (doc.data().name !== object.name)
+      data.push(doc.data());
+  });
 
-  return checkDistance(data, RA, DEC, distance);
+  return checkDistance([object, ...data], RA, DEC, distance);
 }
 
 
@@ -61,10 +67,28 @@ export async function searchNearby(object, distance) {
 export async function searchCatalogB(objects) {
 
   for (var i = 0; i < objects.length; i++) {
-    const querySnapshot = await catalogBRef.where("object_name", "==", objects[i].name).limit(1).get();
+    var querySnapshot = await catalogBRef.where("object_name", "==", objects[i].name).limit(1).get();
     if (querySnapshot.size) objects[i].astrosat = true;
     else objects[i].astrosat = false;
   }
 
   return objects;
+}
+
+export async function getObjectFromCatalogB(object_name) {
+  const querySnapshot1 = await catalogBRef.where("name", "==", object_name).get();
+  if (querySnapshot1.size) {
+    return querySnapshot1.docs[0].data();
+  } else {
+    return null;
+  }
+}
+
+export async function searchPublications(object_name) {
+  const querySnapshot = await catalogCRef.where("name", "array-contains", object_name).get();
+  if (querySnapshot.size) {
+    return querySnapshot.docs[0].data();
+  } else {
+    return null;
+  }
 }
