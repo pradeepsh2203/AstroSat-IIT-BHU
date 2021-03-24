@@ -23,9 +23,14 @@ export function checkDistance(objects, alpha1, delta1, distance) {
     var insideRange = [];
 
     for (var i = 0; i < objects.length; i++) {
-        const delta2 = DegreeToRadian(objects[i].ra), alpha2 = DegreeToRadian(objects[i].dec);
-        alpha1 = DegreeToRadian(alpha1); delta1 = DegreeToRadian(delta1);
+        const alpha2 = DegreeToRadian(ConverthmsToRA(objects[i].RAh, objects[i].RAm, objects[i].RAs))
+        const delta2 = DegreeToRadian(ConvertdmstoDEC(objects[i].DEd, objects[i].DEm, objects[i].DEs));
+
+        alpha1 = DegreeToRadian(alpha1);
+        delta1 = DegreeToRadian(delta1);
+
         const distanceBetweenObjects = Math.acos((Math.sin(delta1) * Math.sin(delta2)) + (Math.cos(delta1) * Math.cos(delta2) * Math.cos(Math.abs(alpha1 - alpha2))));
+
         if (DegreeToRadian(distance) >= distanceBetweenObjects) {
             insideRange.push(objects[i]);
         }
