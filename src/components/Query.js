@@ -2,22 +2,19 @@ import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { searchObject } from "../backend/query";
 const Query = ({ setObjects }) => {
-
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const search = () => {
-    searchObject(query).then(
-      (obj) => {
-        setObjects([obj]);
-        console.log(obj);
-      }
-    )
-  }
+    searchObject(query).then((obj) => {
+      setObjects([obj]);
+      console.log(obj);
+    });
+  };
 
   return (
     <div className="flex flex-wrap px-6 bg-gray-100 bg-opacity-25 py-2 justify-between">
       <h1 className="inline-block">Input the Cosmic Source:</h1>
-      <div className="">
+      <div className="flex flex-wrap">
         <input
           className="border rounded flex-grow"
           type="text"
