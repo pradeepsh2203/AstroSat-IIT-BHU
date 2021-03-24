@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Query from "./components/Query";
 import Aladin from "./components/Aladin";
 import "tailwindcss/tailwind.css";
@@ -30,7 +30,7 @@ function App() {
       </div>
       <div className="text-xl bg-gray-100 rounded-lg rounded-r-none p-2 col-span-4 min-h-screen min-w-min">
         {
-          ObjectDetails.object_name && <>
+          ObjectDetails.object_name ? <>
             <h1 className="text-center text-3xl">Object Details</h1>
             <ul className="list-inside border p-4 rounded-lg shadow list-decimal mt-6">
               <li>Source Name: {ObjectDetails.object_name}</li>
@@ -50,7 +50,7 @@ function App() {
                 Products Table
           </a>
             </p>
-          </>
+          </> : <p>Object not observed by ASTROSAT. Try searching something</p>
         }
       </div>
     </div>
