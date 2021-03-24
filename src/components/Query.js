@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
-import { searchObject } from "../backend/query";
+import { searchNearby, searchObject } from "../backend/query";
+
 const Query = ({ setObjects }) => {
-  const [query, setQuery] = useState("");
+
+  const [query, setQuery] = useState('');
+  const [distance, setDistance] = useState(0.0);
 
   const search = () => {
-    searchObject(query).then((obj) => {
-      setObjects([obj]);
-      console.log(obj);
-    });
-  };
+    searchObject(query).then(
+      (obj) => {
+        console.log(obj);
+        // if object is found
+        if (obj) {
+          searchNearby(obj, distance).then(setObjects)
+        }
+      }
+    )
+  }
 
   return (
     <div className="flex flex-wrap px-6 bg-gray-100 bg-opacity-25 py-2 justify-between">
@@ -25,9 +33,10 @@ const Query = ({ setObjects }) => {
         ></input>
         <input
           className="border rounded max-w-max"
-          type="text"
+          type="number"
           name="Radius"
-          value="1.0"
+          value={distance}
+          onChange={({ target }) => setDistance(target.value)}
         ></input>
         <button
           value="Search"

@@ -22,11 +22,11 @@ where, right ascension(ra), alpha E [0, 2*pie], and declination (dec), delta E [
 export function checkDistance(objects, alpha1, delta1, distance) {
     var insideRange = [];
 
-    for (var i = 0; i < objects.length(); i++) {
+    for (var i = 0; i < objects.length; i++) {
         const delta2 = DegreeToRadian(objects[i].ra), alpha2 = DegreeToRadian(objects[i].dec);
         alpha1 = DegreeToRadian(alpha1); delta1 = DegreeToRadian(delta1);
         const distanceBetweenObjects = Math.acos((Math.sin(delta1) * Math.sin(delta2)) + (Math.cos(delta1) * Math.cos(delta2) * Math.cos(Math.abs(alpha1 - alpha2))));
-        if (distance >= distanceBetweenObjects) {
+        if (DegreeToRadian(distance) >= distanceBetweenObjects) {
             insideRange.push(objects[i]);
         }
     }
