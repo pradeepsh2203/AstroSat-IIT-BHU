@@ -76,7 +76,7 @@ export async function searchCatalogB(objects) {
 }
 
 export async function getObjectFromCatalogB(object_name) {
-  const querySnapshot1 = await catalogBRef.where("name", "==", object_name).get();
+  const querySnapshot1 = await catalogBRef.where("object_name", "==", object_name).get();
   if (querySnapshot1.size) {
     return querySnapshot1.docs[0].data();
   } else {

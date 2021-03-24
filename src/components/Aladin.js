@@ -70,11 +70,9 @@ function Aladin({ objects, distance }) {
           ),
           {
             popupTitle: objects[i].name,
-            popuDesc: `<em>Bmag:</em> ${
-              objects[i].Vmag
-            }<br/><em>Spectral type:</em> ${
-              objects[i].SpType
-            }<br/><em>Type:</em> ${Type[objects[i].type]}`,
+            popupDesc: `<em>Bmag:</em> ${objects[i].Vmag
+              }<br/><em>Spectral type:</em> ${objects[i].SpType
+              }<br/><em>Type:</em> ${Type[objects[i].type]}`,
           }
         ),
       ]);

@@ -9,12 +9,23 @@ const Query = ({ setObjects, distance, setDistance, setDetails }) => {
     var obj = await searchObject(query);
     console.log(obj);
     // if object is found
+
+    if (obj.name) {
+      var details = await getObjectFromCatalogB(obj.name);
+    }
+    if (details === null && obj.Name1) {
+      var details = await getObjectFromCatalogB(obj.Name1);
+    }
+    if (details === null && obj.Name2) {
+      var details = await getObjectFromCatalogB(obj.Name2);
+      console.log(obj.Name2);
+    }
+    if (details) {
+      setDetails(details);
+    }
+
     if (obj) {
       // get details from catalogB
-      var details = getObjectFromCatalogB(query);
-      if (details) {
-        setDetails(details);
-      }
       var objects = await searchNearby(obj, distance);
       objects = await searchCatalogB(objects);
       setObjects(objects);

@@ -17,6 +17,10 @@ function App() {
     target_id: "",
   });
 
+  useEffect(() => {
+    console.log(ObjectDetails);
+  }, [ObjectDetails])
+
   return (
     <div className="lg:grid lg:grid-cols-12">
       <div className="col-span-8">
