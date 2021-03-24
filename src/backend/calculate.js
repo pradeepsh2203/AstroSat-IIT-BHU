@@ -3,6 +3,14 @@ function DegreeToRadian(degree) {
     return degree * (Math.PI / 180);
 }
 
+// get decimal part from a number
+function getDecimalPart(number) {
+    var decimal = number - Math.floor(number);
+    var decimalPlaces = number.toString().split('.')[1].length;
+    decimal = decimal.toFixed(decimalPlaces);
+    return decimal;
+}
+
 /* 
 This function is used to calculate other celestial bodies in the range of search celestial body.
 It take the objects of search range query from database, distance to calculate and the seacrhed object.
@@ -29,8 +37,8 @@ export function checkDistance(objects, alpha1, delta1, distance) {
 // Convert right ascension(ra) in hours, min, sec
 export function ConvertRAtohms(ra) {
     var hours = ra * (24 / 360);
-    var min = hours * 60;
-    var sec = min * 60;
+    var min = getDecimalPart(hours) * 60;
+    var sec = getDecimalPart(min) * 60;
 
     return [Math.floor(hours), Math.floor(min), Math.floor(sec)];
 }
@@ -43,7 +51,10 @@ export function ConverthmsToRA(hours, min, sec) {
 
 // Convert declination (dec) to degree, arcmin, arcsec
 export function ConvertDECtodms(dec) {
-    return [Math.floor(dec), Math.floor(dec * 60), Math.floor(dec * 3600)];
+    var arcmin = getDecimalPart(dec) * 60;
+    var arcsec = getDecimalPart(arcmin) * 60;
+
+    return [Math.floor(dec), Math.floor(arcmin * 60), Math.floor(arcsec * 3600)];
 }
 
 // Convert declination (dec) from degree, arcmin, arcsec to degree
