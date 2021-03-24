@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import { searchNearby, searchObject, searchCatalogB } from "../backend/query";
 
-const Query = ({ setObjects }) => {
-
-  const [query, setQuery] = useState('');
-  const [distance, setDistance] = useState(0.0);
+const Query = ({ setObjects }, distance, setDistance) => {
+  const [query, setQuery] = useState("");
 
   const search = async () => {
-    var obj = await searchObject(query)
+    var obj = await searchObject(query);
     console.log(obj);
     // if object is found
     if (obj) {
@@ -16,7 +14,7 @@ const Query = ({ setObjects }) => {
       objects = await searchCatalogB(objects);
       setObjects(objects);
     }
-  }
+  };
 
   return (
     <div className="flex flex-wrap px-6 bg-gray-100 bg-opacity-25 py-2 justify-between">

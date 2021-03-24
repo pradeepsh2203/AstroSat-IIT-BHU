@@ -17,14 +17,15 @@ var Type = {
   G: "globular-cluster X-ray source",
   Z: "Z-type",
 };
-function Aladin({ objects }) {
+function Aladin({ objects }, distance = "-1") {
   React.useEffect(() => {
     const factor = 2;
     let url = window.location.href; //To find the radius
-    if (url.indexOf("Radius") !== -1) {
-      data.fov =
-        factor *
-        parseFloat(url.substring(url.indexOf("Radius=") + 7, url.length() - 1));
+    if (distance !== "-1") {
+      data.fov = factor * parseFloat(distance);
+    }
+    if (objects.length) {
+      data.target = `${objects[0].RAh} ${objects[0].RAm} ${objects[0].RAs} ${objects[0]["DE-"]}${objects[0].DEd} ${objects[0].DEm} ${objects[0].DEs}`;
     }
     let aladin = window.A.aladin("#aladin-lite-div", data);
 
@@ -37,10 +38,10 @@ function Aladin({ objects }) {
     });
     aladin.addCatalog(cat);
 
-    if (url.indexOf("Radius") !== -1) {
+    if (distance !== "-1") {
       // Drawing a cricle of inside of which all the points would be marked
       var cords = data.target.split(" ").map((x) => parseFloat(x));
-      if (objects.length) {
+      if (objects.length != 0) {
         cords = [
           objects[0].RAh,
           objects[0].RAm,
@@ -54,7 +55,7 @@ function Aladin({ objects }) {
         window.A.circle(
           ConverthmsToRA(cords[0], cords[1], cords[2]),
           ConvertdmstoDEC(cords[3], cords[4], cords[5]),
-          data.fov / factor
+          parseFloat(distance)
         )
       );
     }

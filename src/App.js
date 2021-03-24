@@ -17,14 +17,18 @@ let ObjectDetails = {
 };
 
 function App() {
-
   const [objects, setObjects] = useState([]);
+  const [Distance, SetDistance] = useState(0.0);
 
   return (
     <div className="lg:grid lg:grid-cols-12">
       <div className="col-span-8">
-        <Query setObjects={setObjects} />
-        <Aladin objects={objects} />
+        <Query
+          setObjects={setObjects}
+          distance={Distance}
+          setDistance={SetDistance}
+        />
+        <Aladin objects={objects} distance={Distance} />
       </div>
       <div className="text-xl bg-gray-100 rounded-lg rounded-r-none p-2 col-span-4 min-h-screen min-w-min">
         <h1 className="text-center text-3xl">Object Details</h1>
