@@ -55,3 +55,14 @@ export async function searchNearby(object, distance) {
 
   return checkDistance(data, RA, DEC, distance);
 }
+
+
+export async function searchCatalogB(objects) {
+  return objects.map(
+    (object) => {
+      const querySnapshot = await catalogBRef.where("object_name", "==", object.name).limit(1).get();
+      if (querySnapshot.size) return { ...object, astrosat: true }
+      else return { ...object, astrosat: false }
+    }
+  )
+}

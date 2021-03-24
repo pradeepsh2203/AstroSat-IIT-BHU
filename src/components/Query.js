@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
-import { searchNearby, searchObject } from "../backend/query";
+import { searchNearby, searchObject, searchCatalogB } from "../backend/query";
 
 const Query = ({ setObjects }) => {
 
   const [query, setQuery] = useState('');
   const [distance, setDistance] = useState(0.0);
 
-  const search = () => {
-    searchObject(query).then(
-      (obj) => {
-        console.log(obj);
-        // if object is found
-        if (obj) {
-          searchNearby(obj, distance).then(setObjects)
-        }
-      }
-    )
+  const search = async () => {
+    var obj = await searchObject(query)
+    console.log(obj);
+    // if object is found
+    if (obj) {
+      var objects = await searchNearby(obj, distance);
+      objects = await searchCatalogB(objects);
+      setObjects(objects);
+    }
   }
 
   return (
