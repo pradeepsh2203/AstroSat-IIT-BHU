@@ -57,12 +57,14 @@ export async function searchNearby(object, distance) {
 }
 
 
+// function for querying and checkin in catalog B
 export async function searchCatalogB(objects) {
-  return objects.map(
-    (object) => {
-      const querySnapshot = await catalogBRef.where("object_name", "==", object.name).limit(1).get();
-      if (querySnapshot.size) return { ...object, astrosat: true }
-      else return { ...object, astrosat: false }
-    }
-  )
+
+  for (var i = 0; i < objects.length; i++) {
+    const querySnapshot = await catalogBRef.where("object_name", "==", objects[i].name).limit(1).get();
+    if (querySnapshot.size) objects[i].astrosat = true;
+    else objects[i].astrosat = false;
+  }
+
+  return objects;
 }
