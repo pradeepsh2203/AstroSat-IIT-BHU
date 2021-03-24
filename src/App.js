@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Query from "./components/Query";
 import Aladin from "./components/Aladin";
 import "tailwindcss/tailwind.css";
@@ -17,11 +17,14 @@ let ObjectDetails = {
 };
 
 function App() {
+
+  const [objects, setObjects] = useState([]);
+
   return (
     <div className="lg:grid lg:grid-cols-12">
       <div className="col-span-8">
-        <Query />
-        <Aladin />
+        <Query setObjects={setObjects} />
+        <Aladin objects={objects} />
       </div>
       <div className="text-xl bg-gray-100 rounded-lg rounded-r-none p-2 col-span-4 min-h-screen min-w-min">
         <h1 className="text-center text-3xl">Object Details</h1>
