@@ -65,7 +65,7 @@ function Aladin() {
       }),
     ]);
   }, []);
-  return <div id="aladin-lite-div" />;
+  return <div id="aladin-lite-div" style={{ minHeight: "80vh" }} />;
 }
 
 export default Aladin;
